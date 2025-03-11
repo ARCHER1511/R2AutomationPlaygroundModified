@@ -1,32 +1,32 @@
 package Pages;
 
+import driverfactory.Driver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class AccountDeletionPage
 {
-    private WebDriver driver;
+    private final Driver driver;
     By continueButton = By.xpath("//a[@data-qa=\"continue-button\"]");
     By AccountDeletedHeader = By.xpath("//h2[@data-qa=\"account-deleted\"]/b");
     String AccountDeletedText = "Account Deleted!".toUpperCase();
 
 
     //Constructor
-    public AccountDeletionPage(WebDriver driver)
+    public AccountDeletionPage(Driver driver)
     {
         this.driver = driver;
     }
     //Assertion
     public AccountDeletionPage checkThatAccountShouldBeDeletedSuccessfully()
     {
-        Assert.assertEquals(driver.findElement(AccountDeletedHeader).getText(),AccountDeletedText);
+        Assert.assertEquals(driver.element().getTextOf(AccountDeletedHeader),AccountDeletedText);
         return this;
     }
     //Action
     public HomePage clickOnContinueButton()
     {
-        driver.findElement(continueButton).click();
+        driver.element().click(continueButton);
         return new HomePage(driver);
     }
 }

@@ -1,12 +1,13 @@
 package Pages;
 
+import driverfactory.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class LoginSignUpPage
 {
-    private WebDriver driver;
+    private Driver driver;
 
     By signUpFormHeader = By.xpath("//div[@class=\"signup-form\"]/h2");
     String signUpFormTitle = "New User Signup!";
@@ -24,7 +25,7 @@ public class LoginSignUpPage
     String AlreadyExitsMailMessageText = "Email Address already exist!";
     String IncorrectCredentialsMessageText = "Your email or password is incorrect!";
     //Constructor
-    public LoginSignUpPage(WebDriver driver)
+    public LoginSignUpPage(Driver driver)
     {
         this.driver = driver;
     }
@@ -32,53 +33,53 @@ public class LoginSignUpPage
     //Actions
     public LoginSignUpPage fillSignUpForm(String name, String Email)
     {
-        driver.findElement(registrationName).sendKeys(name);
-        driver.findElement(registrationEmail).sendKeys(Email);
+        driver.element().type(registrationName,name);
+        driver.element().type(registrationEmail,Email);
         return this;
     }
     public RegistrationPage clickSignUpButton()
     {
-        driver.findElement(SignUpButton).click();
+        driver.element().click(SignUpButton);
         return new RegistrationPage(driver);
     }
 
     public LoginSignUpPage fillLoginEmailField(String Email)
     {
-        driver.findElement(loginEmail).sendKeys(Email);
+        driver.element().type(loginEmail,Email);
         return this;
     }
 
     public LoginSignUpPage fillInPasswordField(String Password)
     {
-        driver.findElement(loginPassword).sendKeys(Password);
+        driver.element().type(loginPassword,Password);
         return this;
     }
 
     public HomePage clickOnLoginButton()
     {
-        driver.findElement(loginButton).click();
+        driver.element().click(loginButton);
         return new HomePage(driver);
     }
 
     //Assertions
     public LoginSignUpPage checkThatSignUpFormTitleShouldBeDisplayed()
     {
-        Assert.assertEquals(driver.findElement(signUpFormHeader).getText(),signUpFormTitle);
+        Assert.assertEquals(driver.element().getTextOf(signUpFormHeader),signUpFormTitle);
         return this;
     }
     public LoginSignUpPage checkThatLoginFormTitleShouldBeDisplayed()
     {
-        Assert.assertEquals(driver.findElement(loginFormHeader).getText(),loginFormTitle);
+        Assert.assertEquals(driver.element().getTextOf(loginFormHeader),loginFormTitle);
         return this;
     }
     public LoginSignUpPage checkThatExitingEmailErrorShouldBeDisplayed()
     {
-        Assert.assertEquals(driver.findElement(signUpExitingEmailMessage).getText(),AlreadyExitsMailMessageText);
+        Assert.assertEquals(driver.element().getTextOf(signUpExitingEmailMessage),AlreadyExitsMailMessageText);
         return this;
     }
     public LoginSignUpPage checkThatIncorrectCredentialsMessageIsDisplayed()
     {
-        Assert.assertEquals(driver.findElement(loginIncorrectCredentialsMessage).getText(),IncorrectCredentialsMessageText);
+        Assert.assertEquals(driver.element().getTextOf(loginIncorrectCredentialsMessage),IncorrectCredentialsMessageText);
         return this;
     }
 }

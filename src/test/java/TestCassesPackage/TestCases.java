@@ -2,8 +2,7 @@ package TestCassesPackage;
 
 import Pages.HomePage;
 import Pages.LoginSignUpPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import driverfactory.Driver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -14,9 +13,7 @@ import java.util.Random;
 
 public class TestCases
 {
-    WebDriverWait wait;
-    private WebDriver driver;
-
+    private Driver driver;
     Random rand = new Random();
     int random = rand.nextInt();
     String random_string = Integer.toString(random);
@@ -24,11 +21,8 @@ public class TestCases
     @BeforeClass
     public void setup()
     {
-        wait = new WebDriverWait(driver,Duration.ofSeconds(3));
-        driver = new ChromeDriver();
-        driver.navigate().to("https://www.automationexercise.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        driver.manage().window().maximize();
+        driver = new Driver("Chrome");
+        driver.get().navigate().to("https://www.automationexercise.com/");
     }
     @Test(priority = 1)
     public void UserShouldRegisterSuccessfully()

@@ -1,5 +1,6 @@
 package Pages;
 
+import driverfactory.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -7,9 +8,8 @@ import org.testng.Assert;
 
 import javax.swing.*;
 
-public class RegistrationPage
-{
-    private WebDriver driver;
+public class RegistrationPage {
+    private final Driver driver;
     By EnterAccountInfoText = By.xpath("(//h2/b)[1]");
     String EnterAccountInformation = "Enter Account Information".toUpperCase();
     By AddressInfoText = By.xpath("(//h2/b)[2]");
@@ -36,127 +36,129 @@ public class RegistrationPage
     By mobile_number_field = By.xpath("//input[@id=\"mobile_number\"]");//Required
     By create_account_button = By.xpath("//button[@data-qa=\"create-account\"]");
 
+
     //for drop down menus
     By day = By.xpath("//select[@data-qa=\"days\"]/option[@value=\"1\"]");
     By month = By.xpath("//select[@data-qa=\"months\"]/option[@value=\"1\"]");
     By year = By.xpath("//select[@data-qa=\"years\"]/option[@value=\"2021\"]");
     By country = By.xpath("//select[@data-qa=\"country\"]/option[@value=\"Canada\"]");
+
     //Constructor
-    public RegistrationPage(WebDriver driver)
-    {
+    public RegistrationPage(Driver driver) {
         this.driver = driver;
     }
+
     //Assertions
-    public RegistrationPage checkEnterAccountInformationTextIsDisplayed()
-    {
-        Assert.assertEquals(driver.findElement(EnterAccountInfoText).getText(),EnterAccountInformation);
-        return  this;
-    }
-    public RegistrationPage checkAddressInformationTextIsDisplayed()
-    {
-        Assert.assertEquals(driver.findElement(AddressInfoText).getText(),AddressInformation);
+    public RegistrationPage checkEnterAccountInformationTextIsDisplayed() {
+        Assert.assertEquals(driver.element().getTextOf(EnterAccountInfoText), EnterAccountInformation);
         return this;
     }
+
+    public RegistrationPage checkAddressInformationTextIsDisplayed() {
+        Assert.assertEquals(driver.element().getTextOf(AddressInfoText), AddressInformation);
+        return this;
+    }
+
     //Actions
-    public RegistrationPage clickMrRadioButton()
-    {
-        driver.findElement(Mr_radio_button).click();
+    public RegistrationPage clickMrRadioButton() {
+        driver.element().click(Mr_radio_button);
         return this;
     }
-    public RegistrationPage clickMrsRadioButton()
-    {
-        driver.findElement(Mrs_radio_button).click();
+
+    public RegistrationPage clickMrsRadioButton() {
+        driver.element().click(Mrs_radio_button);
         return this;
     }
-    public RegistrationPage fillNameField(String Name)
-    {
-        driver.findElement(Name_field).sendKeys(Name);
+
+    public RegistrationPage fillNameField(String Name) {
+        driver.element().type(Name_field, Name);
         return this;
     }
-    public RegistrationPage fillEmailField(String Email)
-    {
-        driver.findElement(Email_field).sendKeys(Email);
+
+    public RegistrationPage fillEmailField(String Email) {
+        driver.element().type(Email_field, Email);
         return this;
     }
-    public RegistrationPage fillPasswordField(String Password)
-    {
-        driver.findElement(Password_field).sendKeys(Password);
+
+    public RegistrationPage fillPasswordField(String Password) {
+        driver.element().type(Password_field, Password);
         return this;
     }
-    public RegistrationPage useDropDownDays()
-    {
-        new Select(driver.findElement(Days_drop_down)).selectByVisibleText(driver.findElement(day).getText());
+
+    public RegistrationPage useDropDownDays() {
+        driver.element().selectByValue(Days_drop_down, driver.element().getTextOf(day));
         return this;
     }
-    public RegistrationPage useDropDownMonths()
-    {
-        new Select(driver.findElement(Months_drop_down)).selectByVisibleText(driver.findElement(month).getText());
+
+    public RegistrationPage useDropDownMonths() {
+        driver.element().selectByValue(Months_drop_down, driver.element().getTextOf(month));
         return this;
     }
-    public RegistrationPage useDropDownYears()
-    {
-        new Select(driver.findElement(Years_drop_down)).selectByVisibleText(driver.findElement(year).getText());
+
+    public RegistrationPage useDropDownYears() {
+        driver.element().selectByValue(Years_drop_down, driver.element().getTextOf(year));
         return this;
     }
-    public RegistrationPage clickSignUpForNewsLetterCheckBox()
-    {
-        driver.findElement(SignUpForNewsLetter_CheckBox).click();
+
+    public RegistrationPage clickSignUpForNewsLetterCheckBox() {
+        driver.element().click(SignUpForNewsLetter_CheckBox);
         return this;
     }
-    public RegistrationPage clickSpecialOffers_CheckBox()
-    {
-        driver.findElement(SpecialOffers_CheckBox).click();
+
+    public RegistrationPage clickSpecialOffers_CheckBox() {
+        driver.element().click(SpecialOffers_CheckBox);
         return this;
     }
-    public RegistrationPage fillFirstNameField(String FirstName)
-    {
-        driver.findElement(firstName_field).sendKeys(FirstName);
+
+    public RegistrationPage fillFirstNameField(String FirstName) {
+        driver.element().type(firstName_field, FirstName);
         return this;
     }
-    public RegistrationPage fillLastNameField(String LastName)
-    {
-        driver.findElement(lastName_field).sendKeys(LastName);
+
+    public RegistrationPage fillLastNameField(String LastName) {
+        driver.element().type(lastName_field, LastName);
         return this;
 
     }
-    public RegistrationPage fillAddress1Field(String Address)
-    {
-        driver.findElement(address1_field).sendKeys(Address);
+
+    public RegistrationPage fillAddress1Field(String Address) {
+        driver.element().type(address1_field, Address);
         return this;
     }
-    public RegistrationPage fillAddress2Field(String Address2)
-    {
-        driver.findElement(address2_field).sendKeys(Address2);
+
+    public RegistrationPage fillAddress2Field(String Address2) {
+        driver.element().type(address2_field, Address2);
         return this;
     }
-    public RegistrationPage useDropDownCountry()
-    {
-        new Select(driver.findElement(country_dropdown)).selectByVisibleText(driver.findElement(country).getText());
+
+    public RegistrationPage useDropDownCountry() {
+        driver.element().selectByValue(country_dropdown, driver.element().getTextOf(country));
         return this;
     }
-    public RegistrationPage fillStateField(String State)
-    {
-        driver.findElement(state_field).sendKeys(State);
+
+    public RegistrationPage fillStateField(String State) {
+        Assert.assertEquals(driver.get().findElement(AddressInfoText).getText(), AddressInformation);
+        driver.element().type(state_field, State);
         return this;
     }
-    public RegistrationPage fillCityField(String City)
-    {
-        driver.findElement(city_field).sendKeys(City);
+
+    public RegistrationPage fillCityField(String City) {
+        driver.element().type(city_field, City);
         return this;
     }
-    public RegistrationPage fillZipCodeFiled(String ZipCode)
-    {
-        driver.findElement(zipcode_field).sendKeys(ZipCode);
+
+    public RegistrationPage fillZipCodeFiled(String ZipCode) {
+        driver.element().type(zipcode_field, ZipCode);
         return this;
     }
-    public RegistrationPage fillMobileNumberField(String MobileNumber)
-    {
-        driver.findElement(mobile_number_field).sendKeys(MobileNumber);
+
+    public RegistrationPage fillMobileNumberField(String MobileNumber) {
+        driver.element().type(mobile_number_field, MobileNumber);
         return this;
     }
-    public RegistrationSuccessPage clickCreateAccountButton()
-    {
-        driver.findElement(create_account_button).click();
+
+    public RegistrationSuccessPage clickCreateAccountButton() {
+        driver.element().click(create_account_button);
         return new RegistrationSuccessPage(driver);
     }
 

@@ -1,12 +1,12 @@
 package Pages;
 
+import driverfactory.Driver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class HomePage
 {
-    private WebDriver driver;
+    private final Driver driver;
     By loginSignUpLink = By.xpath("//a[@href=\"/login\"]");
     By featuresItemsText = By.xpath("//div[@class=\"features_items\"]/h2");
     String FeaturesItemsTitle = "Features Items".toUpperCase();
@@ -16,7 +16,7 @@ public class HomePage
     By ProductsLink = By.xpath("//a[@href=\"/products\"]");
 
     //Constructor
-    public HomePage(WebDriver driver)
+    public HomePage(Driver driver)
     {
         this.driver = driver;
     }
@@ -24,17 +24,17 @@ public class HomePage
     //Actions
     public LoginSignUpPage clickOnLoginSignUpPage()
     {
-        driver.findElement(loginSignUpLink).click();
+        driver.element().click(loginSignUpLink);
         return new LoginSignUpPage(driver);
     }
     public LoginSignUpPage clickOnLogoutLink()
     {
-        driver.findElement(logoutLink).click();
+        driver.element().click(logoutLink);
         return new LoginSignUpPage(driver);
     }
     public AccountDeletionPage clickOnDeleteAccountPage()
     {
-        driver.findElement(deleteAccountLink).click();
+        driver.element().click(deleteAccountLink);
         return new AccountDeletionPage(driver);
     }
 
@@ -42,35 +42,35 @@ public class HomePage
     //Assertions
     public HomePage CheckThatHomePageLoaded()
     {
-        Assert.assertEquals(driver.findElement(featuresItemsText).getText(),FeaturesItemsTitle);
+        Assert.assertEquals(driver.element().getTextOf(featuresItemsText),FeaturesItemsTitle);
         return this;
     }
     public HomePage checkThatUserShouldBeNavigatedToHomePageSuccessfully()
     {
-        Assert.assertEquals(driver.getCurrentUrl(),homePageUrl);
+        Assert.assertEquals(driver.get().getCurrentUrl(),homePageUrl);
         return this;
     }
 
     public HomePage checkThatLogoutLinkShouldBeDisplayed()
     {
-        Assert.assertTrue(driver.findElement(logoutLink).isDisplayed());
+        Assert.assertTrue(driver.element().IsDisplayed(logoutLink));
         return this;
     }
 
     public HomePage checkThatDeleteAccountLinkShouldBeDisplayed()
     {
-        Assert.assertTrue(driver.findElement(deleteAccountLink).isDisplayed());
+        Assert.assertTrue(driver.element().IsDisplayed(deleteAccountLink));
         return this;
     }
 
     public HomePage checkThatLoginLinkShouldBeDisplyed()
     {
-        Assert.assertTrue(driver.findElement(loginSignUpLink).isDisplayed());
+        Assert.assertTrue(driver.element().IsDisplayed(loginSignUpLink));
         return this;
     }
     public ProductsPage clickOnProductsIcon()
     {
-        driver.findElement(ProductsLink).click();
+        driver.element().click(ProductsLink);
         return new ProductsPage(driver);
     }
 }

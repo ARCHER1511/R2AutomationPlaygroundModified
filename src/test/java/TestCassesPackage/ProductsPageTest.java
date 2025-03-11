@@ -2,6 +2,7 @@ package TestCassesPackage;
 
 import Pages.HomePage;
 import Pages.ProductsPage;
+import driverfactory.Driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
@@ -10,16 +11,16 @@ import java.time.Duration;
 
 public class ProductsPageTest
 {
-    private WebDriver driver;
+    private Driver driver;
 
 
     @BeforeClass
     public void setup()
     {
-        driver = new ChromeDriver();
-        driver.navigate().to("https://www.automationexercise.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        driver.manage().window().maximize();
+        driver = new Driver("Chrome");
+        driver.get().navigate().to("https://www.automationexercise.com/");
+        driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        driver.get().manage().window().maximize();
     }
     @Test(priority = 1)
     public void checkThatProductsPageIsLoaded()

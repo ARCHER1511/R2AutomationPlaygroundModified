@@ -1,12 +1,13 @@
 package Pages;
 
+import driverfactory.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class ProductsPage
 {
-    private WebDriver driver;
+    private final Driver driver;
 
     By AllProductsTitle = By.xpath("//h2[@class=\"title text-center\"]");
     String AllProductsText = "All Products".toUpperCase();
@@ -14,29 +15,29 @@ public class ProductsPage
     By SearchIcon = By.id("submit_search");
     By SearchedProductsTitle = By.xpath("//h2[@class=\"title text-center\"]");
     String SearchedProductsText = "Searched Products".toUpperCase();
-    public ProductsPage(WebDriver driver)
+    public ProductsPage(Driver driver)
     {
         this.driver = driver;
     }
 
     public ProductsPage checkThatAllProductsTitleIsDisplayed()
     {
-        Assert.assertEquals(driver.findElement(AllProductsTitle).getText(),AllProductsText);
+        Assert.assertEquals(driver.element().getTextOf(AllProductsTitle),AllProductsText);
         return this;
     }
     public ProductsPage fillSearchBar(String search)
     {
-        driver.findElement(SearchBar).sendKeys(search);
+        driver.element().type(SearchBar,search);
         return this;
     }
     public ProductsPage clickSearchIcon()
     {
-        driver.findElement(SearchIcon).click();
+        driver.element().click(SearchIcon);
         return this;
     }
     public ProductsPage checkThatSearchResultsIsDisplayed()
     {
-        Assert.assertEquals(driver.findElement(SearchedProductsTitle).getText(),SearchedProductsText);
+        Assert.assertEquals(driver.element().getTextOf(SearchedProductsTitle),SearchedProductsText);
         return this;
     }
 
