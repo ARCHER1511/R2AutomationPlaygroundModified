@@ -2,13 +2,19 @@ package Pages;
 
 import driverfactory.Driver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import javax.swing.*;
+import java.time.Duration;
 
-public class RegistrationPage {
+public class RegistrationPage
+{
     private final Driver driver;
     By EnterAccountInfoText = By.xpath("(//h2/b)[1]");
     String EnterAccountInformation = "Enter Account Information".toUpperCase();
@@ -37,127 +43,160 @@ public class RegistrationPage {
     By create_account_button = By.xpath("//button[@data-qa=\"create-account\"]");
 
 
+
     //for drop down menus
     By day = By.xpath("//select[@data-qa=\"days\"]/option[@value=\"1\"]");
     By month = By.xpath("//select[@data-qa=\"months\"]/option[@value=\"1\"]");
     By year = By.xpath("//select[@data-qa=\"years\"]/option[@value=\"2021\"]");
     By country = By.xpath("//select[@data-qa=\"country\"]/option[@value=\"Canada\"]");
-
     //Constructor
-    public RegistrationPage(Driver driver) {
+    public RegistrationPage(Driver driver)
+    {
         this.driver = driver;
     }
-
     //Assertions
-    public RegistrationPage checkEnterAccountInformationTextIsDisplayed() {
-        Assert.assertEquals(driver.element().getTextOf(EnterAccountInfoText), EnterAccountInformation);
+    public RegistrationPage checkEnterAccountInformationTextIsDisplayed()
+    {
+        Assert.assertEquals(driver.element().getTextOf(EnterAccountInfoText),EnterAccountInformation);
+        return  this;
+    }
+    public RegistrationPage checkAddressInformationTextIsDisplayed()
+    {
+        Assert.assertEquals(driver.element().getTextOf(AddressInfoText),AddressInformation);
         return this;
     }
-
-    public RegistrationPage checkAddressInformationTextIsDisplayed() {
-        Assert.assertEquals(driver.element().getTextOf(AddressInfoText), AddressInformation);
-        return this;
-    }
-
     //Actions
-    public RegistrationPage clickMrRadioButton() {
+    public RegistrationPage clickMrRadioButton()
+    {
         driver.element().click(Mr_radio_button);
         return this;
     }
-
-    public RegistrationPage clickMrsRadioButton() {
+    public RegistrationPage clickMrsRadioButton()
+    {
         driver.element().click(Mrs_radio_button);
         return this;
     }
-
-    public RegistrationPage fillNameField(String Name) {
-        driver.element().type(Name_field, Name);
+    public RegistrationPage fillNameField(String Name)
+    {
+        driver.element().type(Name_field,Name);
+        return this;
+    }
+    public RegistrationPage fillEmailField(String Email)
+    {
+        driver.element().type(Email_field,Email);
+        return this;
+    }
+    public RegistrationPage fillPasswordField(String Password)
+    {
+        driver.element().type(Password_field,Password);
         return this;
     }
 
-    public RegistrationPage fillEmailField(String Email) {
-        driver.element().type(Email_field, Email);
-        return this;
+    private void selectDropdownOption(By dropdownLocator, String option) {
+        Select select = new Select(driver.get().findElement(dropdownLocator));
+        select.selectByVisibleText(option);
     }
 
-    public RegistrationPage fillPasswordField(String Password) {
-        driver.element().type(Password_field, Password);
+
+    public RegistrationPage useDropDownDays()
+    {
+
+
+        driver.element().selectByValue(Days_drop_down,driver.element().getTextOf(day));
         return this;
     }
+    public RegistrationPage useDropDownMonths()
+    {
+        selectDropdownOption(Months_drop_down, driver.element().getTextOf(month));
 
-    public RegistrationPage useDropDownDays() {
-        driver.element().selectByValue(Days_drop_down, driver.element().getTextOf(day));
+        // driver.element().selectByValue(Months_drop_down,driver.element().getTextOf(month));
         return this;
     }
-
-    public RegistrationPage useDropDownMonths() {
-        driver.element().selectByValue(Months_drop_down, driver.element().getTextOf(month));
+    public RegistrationPage useDropDownYears()
+    {
+        driver.element().selectByValue(Years_drop_down,driver.element().getTextOf(year));
         return this;
     }
-
-    public RegistrationPage useDropDownYears() {
-        driver.element().selectByValue(Years_drop_down, driver.element().getTextOf(year));
-        return this;
-    }
-
     public RegistrationPage clickSignUpForNewsLetterCheckBox() {
-        driver.element().click(SignUpForNewsLetter_CheckBox);
+        JavascriptExecutor js = (JavascriptExecutor) driver.get();
+
+        // Find the WebElement for the checkbox using the By locator
+        WebElement checkboxElement = driver.get().findElement(SignUpForNewsLetter_CheckBox);
+
+        // Use JavascriptExecutor to click the checkbox
+        js.executeScript("arguments[0].click();", checkboxElement);
+
         return this;
     }
 
     public RegistrationPage clickSpecialOffers_CheckBox() {
-        driver.element().click(SpecialOffers_CheckBox);
+        JavascriptExecutor js = (JavascriptExecutor) driver.get();
+
+        // Find the WebElement for the checkbox using the By locator
+        WebElement checkboxElement = driver.get().findElement(SpecialOffers_CheckBox);
+
+        // Scroll the checkbox into view
+        js.executeScript("arguments[0].scrollIntoView(true);", checkboxElement);
+
+        // Wait for the element to be clickable
+        WebDriverWait wait = new WebDriverWait(driver.get(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(checkboxElement));
+
+        // Click the checkbox
+        checkboxElement.click();
+
         return this;
     }
 
-    public RegistrationPage fillFirstNameField(String FirstName) {
-        driver.element().type(firstName_field, FirstName);
+    public RegistrationPage fillFirstNameField(String FirstName)
+    {
+        driver.element().type(firstName_field,FirstName);
         return this;
     }
-
-    public RegistrationPage fillLastNameField(String LastName) {
-        driver.element().type(lastName_field, LastName);
+    public RegistrationPage fillLastNameField(String LastName)
+    {
+        driver.element().type(lastName_field,LastName);
         return this;
 
     }
-
-    public RegistrationPage fillAddress1Field(String Address) {
-        driver.element().type(address1_field, Address);
+    public RegistrationPage fillAddress1Field(String Address)
+    {
+        driver.element().type(address1_field,Address);
         return this;
     }
-
-    public RegistrationPage fillAddress2Field(String Address2) {
-        driver.element().type(address2_field, Address2);
+    public RegistrationPage fillAddress2Field(String Address2)
+    {
+        driver.element().type(address2_field,Address2);
         return this;
     }
-
-    public RegistrationPage useDropDownCountry() {
-        driver.element().selectByValue(country_dropdown, driver.element().getTextOf(country));
+    public RegistrationPage useDropDownCountry()
+    {
+        driver.element().selectByValue(country_dropdown,driver.element().getTextOf(country));
         return this;
     }
-
-    public RegistrationPage fillStateField(String State) {
+    public RegistrationPage fillStateField(String State)
+    {
         Assert.assertEquals(driver.get().findElement(AddressInfoText).getText(), AddressInformation);
-        driver.element().type(state_field, State);
+        driver.element().type(state_field,State);
         return this;
     }
-
-    public RegistrationPage fillCityField(String City) {
-        driver.element().type(city_field, City);
+    public RegistrationPage fillCityField(String City)
+    {
+        driver.element().type(city_field,City);
         return this;
     }
-
-    public RegistrationPage fillZipCodeFiled(String ZipCode) {
-        driver.element().type(zipcode_field, ZipCode);
+    public RegistrationPage fillZipCodeFiled(String ZipCode)
+    {
+        driver.element().type(zipcode_field,ZipCode);
         return this;
     }
-
-    public RegistrationPage fillMobileNumberField(String MobileNumber) {
-        driver.element().type(mobile_number_field, MobileNumber);
+    public RegistrationPage fillMobileNumberField(String MobileNumber)
+    {
+        driver.element().type(mobile_number_field,MobileNumber);
         return this;
     }
-
-    public RegistrationSuccessPage clickCreateAccountButton() {
+    public RegistrationSuccessPage clickCreateAccountButton()
+    {
         driver.element().click(create_account_button);
         return new RegistrationSuccessPage(driver);
     }
