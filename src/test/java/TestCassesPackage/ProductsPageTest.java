@@ -11,31 +11,33 @@ import java.time.Duration;
 
 public class ProductsPageTest
 {
-    private Driver driver;
+    public ThreadLocal<Driver> driver;
 
 
     @BeforeClass
-    public void setup()
+    @Parameters(value = {"browserName"})
+    public void setup(@Optional("CHROME") String browserName)
     {
-        driver = new Driver("Chrome");
-        driver.get().navigate().to("https://www.automationexercise.com/");
-        driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        driver.get().manage().window().maximize();
+        driver = new ThreadLocal<>();
+        driver.set(new Driver(browserName));
+        driver.get().browser().getToURL("https://www.automationexercise.com/");
+        driver.get().get().manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        driver.get().get().manage().window().maximize();
     }
     @Test(priority = 1)
     public void checkThatProductsPageIsLoaded()
     {
-        new HomePage(driver).clickOnProductsIcon().checkThatAllProductsTitleIsDisplayed();
+        new HomePage(driver.get()).clickOnProductsIcon().checkThatAllProductsTitleIsDisplayed();
     }
     @Test(priority = 2,dependsOnMethods ="checkThatProductsPageIsLoaded")
     public void checkThatTheProductsIsSearched()
     {
-        new ProductsPage(driver).fillSearchBar("TShirts").clickSearchIcon().checkThatSearchResultsIsDisplayed();
+        new ProductsPage(driver.get()).fillSearchBar("TShirts").clickSearchIcon().checkThatSearchResultsIsDisplayed();
     }
 
     @AfterClass
     public void tearDown()
     {
-        driver.quit();
+        driver.get().quit();
     }
 }

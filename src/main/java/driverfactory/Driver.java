@@ -1,18 +1,21 @@
 package driverfactory;
 
+import BrowserActions.BrowserActions;
 import ElementActions.ElementActions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class Driver
 {
-    private final WebDriver driver;
+    private ThreadLocal<WebDriver> driver;
 
-    public Driver(String driver)
+    public Driver(String driverType)
     {
-        this.driver = getDriver(driver).startDriver();
-        System.out.println("We started with " + driver);
-        this.driver.manage().window().maximize();
+        driver = new ThreadLocal<>();
+        //this.driver = getDriver(driver).startDriver();
+        driver.set(getDriver(driverType).startDriver());
+        System.out.println("We started with " + driver.get());
+        driver.get().manage().window().maximize();
     }
 
     private DriverAbstract getDriver(String driver)
@@ -39,14 +42,18 @@ public class Driver
     }
     public WebDriver get()
     {
-        return this.driver;
+        return driver.get();
     }
     public void quit()
     {
-        driver.quit();
+        driver.get().quit();
     }
     public ElementActions element()
     {
-        return new ElementActions(driver);
+        return new ElementActions(driver.get());
+    }
+    public BrowserActions browser()
+    {
+        return new BrowserActions(driver.get());
     }
 }

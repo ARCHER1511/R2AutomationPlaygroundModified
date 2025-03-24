@@ -16,7 +16,7 @@ public class ElementActions
     public ElementActions(WebDriver driver)
     {
         this.driver = driver;
-        javascriptExecutor = (JavascriptExecutor) this.driver;
+        javascriptExecutor = (JavascriptExecutor) this.driver; //vip
     }
     public void click(By locator)
     {
@@ -44,6 +44,11 @@ public class ElementActions
     {
         System.out.println("Selecting value "+ value + "from dropdown: "+ locator.toString());
         new Select(driver.findElement(locator)).selectByValue(value);
+    }
+    public void selectByText(By locator, String text)
+    {
+        System.out.println("Select element with text: "+ text + "from dropdown: " + locator);
+        new Select(driver.findElement(locator)).selectByVisibleText(text);
     }
     public String getTextOf(By locator)
     {

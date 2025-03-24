@@ -3,31 +3,44 @@ package TestCassesPackage;
 import Pages.HomePage;
 import Pages.LoginSignUpPage;
 import driverfactory.Driver;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
+import utilties.ScreenshotManager;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.Duration;
 import java.util.Random;
 
 public class TestCases
 {
-    private Driver driver;
+   // public Driver driver;
+    public ThreadLocal<Driver> driver;
     Random rand = new Random();
     int random = rand.nextInt();
     String random_string = Integer.toString(random);
 
+
     @BeforeClass
-    public void setup()
+    @Parameters(value = {"browserName"})
+    public void setup(@Optional("CHROME") String browserName)
     {
-        driver = new Driver("Chrome");
-        driver.get().navigate().to("https://www.automationexercise.com/");
+        driver = new ThreadLocal<>();
+        driver.set(new Driver(browserName));
+        //driver = new Driver("Chrome");
+        driver.get().browser().getToURL("https://www.automationexercise.com/");
+
     }
     @Test(priority = 1)
     public void UserShouldRegisterSuccessfully()
     {
-        new HomePage(driver).CheckThatHomePageLoaded()
+        new HomePage(driver.get()).CheckThatHomePageLoaded()
                 .clickOnLoginSignUpPage()
                 .checkThatSignUpFormTitleShouldBeDisplayed()
                 .fillSignUpForm("Test"+random_string,"test"+random_string+"@test.com")
@@ -57,12 +70,12 @@ public class TestCases
     @Test(priority = 2,dependsOnMethods = {"UserShouldRegisterSuccessfully"})
     public void userCanLogoutSuccessfully()
     {
-        new HomePage(driver).clickOnLogoutLink().checkThatLoginFormTitleShouldBeDisplayed();
+        new HomePage(driver.get()).clickOnLogoutLink().checkThatLoginFormTitleShouldBeDisplayed();
     }
     @Test(priority = 3,dependsOnMethods = "userCanLogoutSuccessfully")
     public void userCanLoginSuccessfully()
     {
-        new LoginSignUpPage(driver).fillLoginEmailField("test"+random_string+"@test.com")
+        new LoginSignUpPage(driver.get()).fillLoginEmailField("test"+random_string+"@test.com")
                 .fillInPasswordField(random_string+"@#$%&*")
                 .clickOnLoginButton()
                 .checkThatUserShouldBeNavigatedToHomePageSuccessfully()
@@ -72,15 +85,29 @@ public class TestCases
     @Test(priority = 4,dependsOnMethods = "userCanLoginSuccessfully")
     public void userCanDeleteAccountSuccessfully()
     {
-        new HomePage(driver).clickOnDeleteAccountPage()
+        new HomePage(driver.get()).clickOnDeleteAccountPage()
                 .checkThatAccountShouldBeDeletedSuccessfully()
                 .clickOnContinueButton()
                 .checkThatLoginLinkShouldBeDisplyed();
     }
+//    @AfterMethod
+//    public void screenShotAndFailure(ITestResult testResult)
+//    {
+//
+//        if(testResult.getStatus() == ITestResult.FAILURE)
+//        {
+//
+//
+//            ScreenshotManager.captureScreenShot(driver.get(),testResult.getName());
+//
+//
+//        }
+//    }
+
     @AfterClass
     public void tearDown()
     {
-        driver.quit();
+        driver.get().quit();
     }
 
 

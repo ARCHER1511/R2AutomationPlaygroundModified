@@ -5,46 +5,45 @@ import Pages.LoginSignUpPage;
 import driverfactory.Driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 
 public class LoginSignUpTests
 {
-    private Driver driver;
+    public ThreadLocal<Driver> driver;
 
     @BeforeMethod
-    public void setup()
+    @Parameters(value = {"browserName"})
+    public void setup(@Optional("CHROME") String browserName)
     {
-        driver = new Driver("Chrome");
-        driver.get().navigate().to("https://www.automationexercise.com/");
+        driver = new ThreadLocal<>();
+        driver.set(new Driver(browserName));
+        driver.get().browser().getToURL("https://www.automationexercise.com/");
     }
 
     @Test
     public void registerWithExistingEmail()
     {
-        new HomePage(driver).clickOnLoginSignUpPage().
+        new HomePage(driver.get()).clickOnLoginSignUpPage().
                 checkThatSignUpFormTitleShouldBeDisplayed().
                 fillSignUpForm("Test","test@test.com").
                 clickSignUpButton();
-        new LoginSignUpPage(driver).checkThatExitingEmailErrorShouldBeDisplayed();
+        new LoginSignUpPage(driver.get()).checkThatExitingEmailErrorShouldBeDisplayed();
     }
     @Test
     public void loginWithIncorrectCredentials()
     {
-        new HomePage(driver).clickOnLoginSignUpPage().
+        new HomePage(driver.get()).clickOnLoginSignUpPage().
                 checkThatLoginFormTitleShouldBeDisplayed().
                 fillLoginEmailField("test@test.com").
                 fillInPasswordField("1234567899").
                 clickOnLoginButton();
-        new LoginSignUpPage(driver).checkThatIncorrectCredentialsMessageIsDisplayed();
+        new LoginSignUpPage(driver.get()).checkThatIncorrectCredentialsMessageIsDisplayed();
     }
     @AfterMethod
     public void tearDown()
     {
-        driver.quit();
+        driver.get().quit();
     }
 }

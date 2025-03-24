@@ -86,27 +86,27 @@ public class RegistrationPage {
     }
 
     public RegistrationPage useDropDownDays() {
-        driver.element().selectByValue(Days_drop_down, driver.element().getTextOf(day));
+        driver.element().selectByText(Days_drop_down, driver.element().getTextOf(day));
         return this;
     }
 
     public RegistrationPage useDropDownMonths() {
-        driver.element().selectByValue(Months_drop_down, driver.element().getTextOf(month));
+        driver.element().selectByText(Months_drop_down, driver.element().getTextOf(month));
         return this;
     }
 
     public RegistrationPage useDropDownYears() {
-        driver.element().selectByValue(Years_drop_down, driver.element().getTextOf(year));
+        driver.element().selectByText(Years_drop_down, driver.element().getTextOf(year));
         return this;
     }
 
     public RegistrationPage clickSignUpForNewsLetterCheckBox() {
-        driver.element().click(SignUpForNewsLetter_CheckBox);
+        driver.element().clickUsingJavascript(SignUpForNewsLetter_CheckBox);
         return this;
     }
 
     public RegistrationPage clickSpecialOffers_CheckBox() {
-        driver.element().click(SpecialOffers_CheckBox);
+        driver.element().clickUsingJavascript(SpecialOffers_CheckBox);
         return this;
     }
 
@@ -132,7 +132,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage useDropDownCountry() {
-        driver.element().selectByValue(country_dropdown, driver.element().getTextOf(country));
+        driver.element().selectByText(country_dropdown, driver.element().getTextOf(country));
         return this;
     }
 
@@ -158,7 +158,7 @@ public class RegistrationPage {
     }
 
     public RegistrationSuccessPage clickCreateAccountButton() {
-        driver.element().click(create_account_button);
+        driver.element().clickUsingJavascript(create_account_button);
         return new RegistrationSuccessPage(driver);
     }
 
