@@ -3,19 +3,7 @@ package TestCassesPackage;
 import Pages.HomePage;
 import Pages.LoginSignUpPage;
 import driverfactory.Driver;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.ITestResult;
 import org.testng.annotations.*;
-import utilties.ScreenshotManager;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.time.Duration;
 import java.util.Random;
 
 public class TestCases
