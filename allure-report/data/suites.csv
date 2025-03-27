@@ -1,0 +1,3 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2615","loginWithIncorrectCredentials","Default Suite","Thu Mar 27 22:40:54 EET 2025","passed","Thu Mar 27 22:40:57 EET 2025","TestCassesPackage.LoginSignUpTests","R2AutomationPlaygroundModified","TestCassesPackage.LoginSignUpTests","loginWithIncorrectCredentials"
+"","3943","registerWithExistingEmail","Default Suite","Thu Mar 27 22:41:05 EET 2025","passed","Thu Mar 27 22:41:09 EET 2025","TestCassesPackage.LoginSignUpTests","R2AutomationPlaygroundModified","TestCassesPackage.LoginSignUpTests","registerWithExistingEmail"
