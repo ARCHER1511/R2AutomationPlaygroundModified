@@ -1,6 +1,7 @@
 package Pages;
 
 import driverfactory.Driver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -24,6 +25,7 @@ public class RegistrationSuccessPage
         wait = new WebDriverWait(this.driver.get(), Duration.ofSeconds(30));
     }
     //Assertions
+    @Step("checkThatSuccessMessageShouldBeDisplayed")
     public RegistrationSuccessPage checkThatSuccessMessageShouldBeDisplayed()
     {
         wait.until(ExpectedConditions.visibilityOf(driver.get().findElement(successMessage)));
@@ -34,6 +36,7 @@ public class RegistrationSuccessPage
         return this;
     }
     //Action
+    @Step("clickOnContinueButton")
     public HomePage clickOnContinueButton()
     {
         driver.element().click(continueButton);

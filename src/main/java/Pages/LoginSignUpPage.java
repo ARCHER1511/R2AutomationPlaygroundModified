@@ -1,6 +1,7 @@
 package Pages;
 
 import driverfactory.Driver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -31,52 +32,57 @@ public class LoginSignUpPage
     }
 
     //Actions
+    @Step("fillSignUpForm")
     public LoginSignUpPage fillSignUpForm(String name, String Email)
     {
         driver.element().type(registrationName,name);
         driver.element().type(registrationEmail,Email);
         return this;
     }
+    @Step("clickSignUpButton")
     public RegistrationPage clickSignUpButton()
     {
         driver.element().click(SignUpButton);
         return new RegistrationPage(driver);
     }
-
+    @Step("fillLoginEmailField")
     public LoginSignUpPage fillLoginEmailField(String Email)
     {
         driver.element().type(loginEmail,Email);
         return this;
     }
-
+    @Step("fillInPasswordField")
     public LoginSignUpPage fillInPasswordField(String Password)
     {
         driver.element().type(loginPassword,Password);
         return this;
     }
-
+    @Step("clickOnLoginButton")
     public HomePage clickOnLoginButton()
     {
         driver.element().click(loginButton);
         return new HomePage(driver);
     }
-
+    @Step("checkThatSignUpFormTitleShouldBeDisplayed")
     //Assertions
     public LoginSignUpPage checkThatSignUpFormTitleShouldBeDisplayed()
     {
         Assert.assertEquals(driver.element().getTextOf(signUpFormHeader),signUpFormTitle);
         return this;
     }
+    @Step("checkThatLoginFormTitleShouldBeDisplayed")
     public LoginSignUpPage checkThatLoginFormTitleShouldBeDisplayed()
     {
         Assert.assertEquals(driver.element().getTextOf(loginFormHeader),loginFormTitle);
         return this;
     }
+    @Step("checkThatExitingEmailErrorShouldBeDisplayed")
     public LoginSignUpPage checkThatExitingEmailErrorShouldBeDisplayed()
     {
         Assert.assertEquals(driver.element().getTextOf(signUpExitingEmailMessage),AlreadyExitsMailMessageText);
         return this;
     }
+    @Step("checkThatIncorrectCredentialsMessageIsDisplayed")
     public LoginSignUpPage checkThatIncorrectCredentialsMessageIsDisplayed()
     {
         Assert.assertEquals(driver.element().getTextOf(loginIncorrectCredentialsMessage),IncorrectCredentialsMessageText);

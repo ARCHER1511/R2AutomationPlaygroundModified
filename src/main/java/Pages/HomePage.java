@@ -23,17 +23,19 @@ public class HomePage
     }
 
     //Actions
+    @Step("clickOnLoginSignUpPage")
     public LoginSignUpPage clickOnLoginSignUpPage()
     {
         driver.element().click(loginSignUpLink);
         return new LoginSignUpPage(driver);
     }
-
+    @Step("clickOnLogoutLink")
     public LoginSignUpPage clickOnLogoutLink()
     {
         driver.element().click(logoutLink);
         return new LoginSignUpPage(driver);
     }
+    @Step("clickOnDeleteAccountPage")
     public AccountDeletionPage clickOnDeleteAccountPage()
     {
         driver.element().click(deleteAccountLink);
@@ -42,34 +44,37 @@ public class HomePage
 
 
     //Assertions
+    @Step("CheckThatHomePageLoaded")
     public HomePage CheckThatHomePageLoaded()
     {
         Assert.assertEquals(driver.element().getTextOf(featuresItemsText),FeaturesItemsTitle);
         return this;
     }
+    @Step("checkThatUserShouldBeNavigatedToHomePageSuccessfully")
     public HomePage checkThatUserShouldBeNavigatedToHomePageSuccessfully()
     {
         Assert.assertEquals(driver.get().getCurrentUrl(),homePageUrl);
         return this;
     }
-
+    @Step("checkThatLogoutLinkShouldBeDisplayed")
     public HomePage checkThatLogoutLinkShouldBeDisplayed()
     {
         Assert.assertTrue(driver.element().IsDisplayed(logoutLink));
         return this;
     }
-
+    @Step("checkThatDeleteAccountLinkShouldBeDisplayed")
     public HomePage checkThatDeleteAccountLinkShouldBeDisplayed()
     {
         Assert.assertTrue(driver.element().IsDisplayed(deleteAccountLink));
         return this;
     }
-
+    @Step("checkThatLoginLinkShouldBeDisplyed")
     public HomePage checkThatLoginLinkShouldBeDisplyed()
     {
         Assert.assertTrue(driver.element().IsDisplayed(loginSignUpLink));
         return this;
     }
+    @Step("clickOnProductsIcon")
     public ProductsPage clickOnProductsIcon()
     {
         driver.element().click(ProductsLink);

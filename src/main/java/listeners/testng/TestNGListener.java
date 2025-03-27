@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 import static utilties.PropertiesManager.initializeProperties;
+import static utilties.PropertiesManager.webConfig;
 
 public class TestNGListener implements IExecutionListener, ITestListener
 {
@@ -21,7 +22,11 @@ public class TestNGListener implements IExecutionListener, ITestListener
     public void onExecutionStart() {
         System.out.println("Welcome to Selenium Framework");
         initializeProperties();
-        System.out.println("Cleaning results....");
+        if(webConfig.getProperty("cleanAllureReport").equalsIgnoreCase("true"))
+        {
+            System.out.println("Cleaning results....");
+            AllureReportHelper.cleanAllureReport();
+        }
         AllureReportHelper.cleanAllureReport();
     }
     @Override
@@ -29,8 +34,15 @@ public class TestNGListener implements IExecutionListener, ITestListener
     {
        System.out.println("End of Execution");
        System.out.println("Generating Report......");
+        if(webConfig.getProperty("openAllureReportAfterExecution").equalsIgnoreCase("true"))
+        {
+            try {System.out.println("Opening Allure Report");
+                Runtime.getRuntime().exec("reportGeneration.bat");}
+            catch (IOException e)
+            {System.out.println("Unable to Generate Allure Report, may be there's an issue in the batch file/commands");}
+        }
 
-        try {    System.out.println("Opening Allure Report");    Runtime.getRuntime().exec("reportGeneration.bat");} catch (IOException e) {    System.out.println("Unable to Generate Allure Report, may be there's an issue in the batch file/commands");}
+
 
     }
     @Override
