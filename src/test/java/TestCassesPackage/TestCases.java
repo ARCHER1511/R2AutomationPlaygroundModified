@@ -23,7 +23,7 @@ public class TestCases
     {
         driver = new ThreadLocal<>();
         driver.set(new Driver());
-        //driver = new Driver("Chrome");
+//        driver = new Driver("Chrome");
         driver.get().browser().getToURL("https://www.automationexercise.com/");
 
     }

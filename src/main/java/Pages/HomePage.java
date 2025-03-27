@@ -1,6 +1,7 @@
 package Pages;
 
 import driverfactory.Driver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -27,6 +28,7 @@ public class HomePage
         driver.element().click(loginSignUpLink);
         return new LoginSignUpPage(driver);
     }
+
     public LoginSignUpPage clickOnLogoutLink()
     {
         driver.element().click(logoutLink);
