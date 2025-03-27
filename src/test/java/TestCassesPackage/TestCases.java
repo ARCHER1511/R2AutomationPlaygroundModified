@@ -14,13 +14,15 @@ public class TestCases
     int random = rand.nextInt();
     String random_string = Integer.toString(random);
 
+//    @Parameters(value = {"browserName"})
+//    @Optional("CHROME") String browserName
+//    browserName
 
     @BeforeClass
-    @Parameters(value = {"browserName"})
-    public void setup(@Optional("CHROME") String browserName)
+    public void setup()
     {
         driver = new ThreadLocal<>();
-        driver.set(new Driver(browserName));
+        driver.set(new Driver());
         //driver = new Driver("Chrome");
         driver.get().browser().getToURL("https://www.automationexercise.com/");
 

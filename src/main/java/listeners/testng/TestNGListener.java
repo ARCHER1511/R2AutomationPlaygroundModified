@@ -7,11 +7,14 @@ import org.testng.ITestResult;
 import utilties.ScreenshotManager;
 import java.lang.reflect.Field;
 
+import static utilties.PropertiesManager.initializeProperties;
+
 public class TestNGListener implements IExecutionListener, ITestListener
 {
     @Override
     public void onExecutionStart() {
         System.out.println("Welcome to Selenium Framework");
+        initializeProperties();
     }
     @Override
     public void onExecutionFinish()

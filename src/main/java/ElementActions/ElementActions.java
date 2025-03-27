@@ -78,18 +78,10 @@ public class ElementActions
         new Actions(driver).scrollToElement(driver.findElement(locator)).build().perform();
         return this;
     }
-//    public ElementActions selectByIndex(By locator, int index)
-//    {
-//        System.out.println("Selecting options " + index + "from dropdown" + locator.toString());
-//        new Select(driver.findElement(locator)).selectByIndex(index);
-//        return this;
-//    }
-
     public ElementActions clickUsingJavascript(By locator)
     {
         javascriptExecutor.executeScript("arguments[0].click();", driver.findElement(locator));
         return this;
     }
-
 
 }

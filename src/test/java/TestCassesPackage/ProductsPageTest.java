@@ -3,8 +3,6 @@ package TestCassesPackage;
 import Pages.HomePage;
 import Pages.ProductsPage;
 import driverfactory.Driver;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 
 import java.time.Duration;
@@ -14,12 +12,15 @@ public class ProductsPageTest
     public ThreadLocal<Driver> driver;
 
 
+//@Parameters(value = {"browserName"})
+//@Optional("CHROME") String browserName
+//browserName
+
     @BeforeClass
-    @Parameters(value = {"browserName"})
-    public void setup(@Optional("CHROME") String browserName)
+    public void setup()
     {
         driver = new ThreadLocal<>();
-        driver.set(new Driver(browserName));
+        driver.set(new Driver());
         driver.get().browser().getToURL("https://www.automationexercise.com/");
         driver.get().get().manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         driver.get().get().manage().window().maximize();

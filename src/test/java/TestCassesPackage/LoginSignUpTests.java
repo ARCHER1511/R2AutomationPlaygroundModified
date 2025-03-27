@@ -3,23 +3,25 @@ package TestCassesPackage;
 import Pages.HomePage;
 import Pages.LoginSignUpPage;
 import driverfactory.Driver;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 
-import java.time.Duration;
+
 
 public class LoginSignUpTests
 {
     public ThreadLocal<Driver> driver;
 
+    //@BeforeMethod
+    //@Parameters(value = {"browserName"})
+    //@Optional("CHROME") String browserName
+    //browserName
+
     @BeforeMethod
-    @Parameters(value = {"browserName"})
-    public void setup(@Optional("CHROME") String browserName)
+    public void setup()
     {
         driver = new ThreadLocal<>();
-        driver.set(new Driver(browserName));
-        driver.get().browser().getToURL("https://www.automationexercise.com/");
+        driver.set(new Driver());
+        //driver.get().browser().getToURL("https://www.automationexercise.com/");
     }
 
     @Test
