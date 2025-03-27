@@ -23,17 +23,19 @@ public class HomePage
     }
 
     //Actions
+    @Step("")
     public LoginSignUpPage clickOnLoginSignUpPage()
     {
         driver.element().click(loginSignUpLink);
         return new LoginSignUpPage(driver);
     }
-
+    @Step("")
     public LoginSignUpPage clickOnLogoutLink()
     {
         driver.element().click(logoutLink);
         return new LoginSignUpPage(driver);
     }
+    @Step("")
     public AccountDeletionPage clickOnDeleteAccountPage()
     {
         driver.element().click(deleteAccountLink);
@@ -42,34 +44,37 @@ public class HomePage
 
 
     //Assertions
+    @Step("")
     public HomePage CheckThatHomePageLoaded()
     {
         Assert.assertEquals(driver.element().getTextOf(featuresItemsText),FeaturesItemsTitle);
         return this;
     }
+    @Step("")
     public HomePage checkThatUserShouldBeNavigatedToHomePageSuccessfully()
     {
         Assert.assertEquals(driver.get().getCurrentUrl(),homePageUrl);
         return this;
     }
-
+    @Step("")
     public HomePage checkThatLogoutLinkShouldBeDisplayed()
     {
         Assert.assertTrue(driver.element().IsDisplayed(logoutLink));
         return this;
     }
-
+    @Step("")
     public HomePage checkThatDeleteAccountLinkShouldBeDisplayed()
     {
         Assert.assertTrue(driver.element().IsDisplayed(deleteAccountLink));
         return this;
     }
-
+    @Step("")
     public HomePage checkThatLoginLinkShouldBeDisplyed()
     {
         Assert.assertTrue(driver.element().IsDisplayed(loginSignUpLink));
         return this;
     }
+    @Step("")
     public ProductsPage clickOnProductsIcon()
     {
         driver.element().click(ProductsLink);
