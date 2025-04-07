@@ -19,12 +19,14 @@ public class AccountDeletionPage
         this.driver = driver;
     }
     //Assertion
+    @Step("checkThatAccountShouldBeDeletedSuccessfully")
     public AccountDeletionPage checkThatAccountShouldBeDeletedSuccessfully()
     {
         Assert.assertEquals(driver.element().getTextOf(AccountDeletedHeader),AccountDeletedText);
         return this;
     }
     //Action
+    @Step("clickOnContinueButton")
     public HomePage clickOnContinueButton()
     {
         driver.element().click(continueButton);
