@@ -80,6 +80,17 @@ public class TestCases
                 .clickOnContinueButton()
                 .checkThatLoginLinkShouldBeDisplyed();
     }
+    @AfterClass
+    public void tearDown()
+    {
+        driver.get().quit();
+    }
+}
+
+
+
+
+
 //    @AfterMethod
 //    public void screenShotAndFailure(ITestResult testResult)
 //    {
@@ -93,12 +104,3 @@ public class TestCases
 //
 //        }
 //    }
-
-    @AfterClass
-    public void tearDown()
-    {
-        driver.get().quit();
-    }
-
-
-}

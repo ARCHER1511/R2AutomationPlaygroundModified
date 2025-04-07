@@ -1,6 +1,5 @@
 package BrowserActions;
 
-import ElementActions.ElementActions;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;

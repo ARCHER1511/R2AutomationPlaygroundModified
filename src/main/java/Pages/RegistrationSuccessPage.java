@@ -32,7 +32,7 @@ public class RegistrationSuccessPage
 
         Assert.assertTrue(driver.get().getCurrentUrl().contains("/account_created"));
         Assert.assertTrue(driver.element().IsDisplayed(successMessage));
-        Assert.assertEquals(driver.element().getTextOf(successMessage),"ACCOUNT CREATED!");
+        Assert.assertEquals(driver.element().getTextOf(successMessage),"Account Created!");
         return this;
     }
     //Action
