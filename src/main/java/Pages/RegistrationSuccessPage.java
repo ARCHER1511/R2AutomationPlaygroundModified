@@ -30,9 +30,9 @@ public class RegistrationSuccessPage
     {
         wait.until(ExpectedConditions.visibilityOf(driver.get().findElement(successMessage)));
 
-        Assert.assertTrue(driver.get().getCurrentUrl().contains("/account_created"));
+        Assert.assertTrue(driver.get().getCurrentUrl().contains("ACCOUNT CREATED!"));
         Assert.assertTrue(driver.element().IsDisplayed(successMessage));
-        Assert.assertEquals(driver.element().getTextOf(successMessage),"Account Created!");
+        Assert.assertEquals(driver.element().getTextOf(successMessage),"ACCOUNT CREATED!");
         return this;
     }
     //Action
